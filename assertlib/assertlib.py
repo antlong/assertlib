@@ -1,46 +1,45 @@
 import itertools
 
 
-def assertEqual(object, control):
+def assertEqual(x, y):
     """
     This method asserts that an object is equal to a control.
-    
+
     >>> assertEqual(1, 1)
     >>> assertEqual(str(1), '1')
     """
-    if not object == control:
-        raise AssertionError("%s is not equal to %s" % (object, control))
+    if not x == y:
+        raise AssertionError("%s is not equal to %s" % (x, y))
 
-
-def assertPrecision(object, control):
+def assertPrecision(object, amount):
     """
-    This method will assert an object is precise to your control.
-    
+    Asserts an object has x amount of precision.
+
     >>> assertPrecision(1.111, 3)
     """
-    if not len(str(object).partition('.')[2]) == control:
-        raise AssertionError("")
+    if not len(str(format(object)).partition('.')[2]) == int(amount):
+        raise AssertionError("%s does not have %s precision." % (str(object), str(amount)))
 
 
-def assertEquals(object, control):
+def assertEquals(x, y):
     """
-    This method asserts that an object is equal to a control.
+    This method asserts that x is equal to y.
     
     >>> assertEquals(1, 1)
     >>> assertEquals(str(1), '1')
     """
-    assertEqual(object, control)
+    assertEqual(x, y)
 
 
-def assertNotEqual(object, control):
+def assertNotEqual(x, y):
     """
-    This method asserts that an object is not equal to a control.
+    This method asserts that x is not equal to y.
     
     >>> assertNotEqual(1, '1')
     >>> assertNotEqual(int("1"), '1')
     """
-    if object == control:
-        raise AssertionError("%s did not equal %s." % (object, control))
+    if x == y:
+        raise AssertionError("%s did not equal %s." % (x, y))
 
 
 def assertNotEquals(object, control):
@@ -66,7 +65,7 @@ def assertTrue(object):
 def assertFalse(object):
     """
     This method asserts that an object or expression evaluates to False.
-    
+
     >>> assertFalse(False)
     """
     if bool(object):
@@ -76,7 +75,7 @@ def assertFalse(object):
 def assertIs(object, control):
     """
     This method asserts that an object evaluates to a control.
-    
+
     >>> def x():
     ...     return 1
     >>>
@@ -128,7 +127,7 @@ def assertAlmostEqual(first, second, places=None, epsilon=None):
         if round(abs(second - first), places) == 0:
             raise AssertionError(
             '%s != %s within %s places' % (first, second, places))
-        
+
 
 def assertNotAlmostEqual(first, second, places=None, epsilon=None):
     """
@@ -171,6 +170,16 @@ def assertSequenceNotEqual(seq1, seq2, assert_seq_types=True):
         raise TypeError("type %s == type %s" % (type(seq1), type(seq2)))
     if all(a != b for a, b in itertools.izip(seq1, seq2)):
         raise AssertionError("%s is equal to %s" % (seq1, seq2))
+
+def assertEither(control, x, y):
+    """Assert that x evaluates to either y or z."""
+    if control != this or control != z:
+        raise AssertionError("{0} is neither {1} or {2}".format(control,x,y))
+
+def assertNotEither(control, x, y):
+    """Assert that x evaluates to either y or z."""
+    if control == this or control == z:
+        raise AssertionError("{0} is neither {1} or {2}".format(control,x,y))
 
 if __name__ == "__main__":
     import doctest

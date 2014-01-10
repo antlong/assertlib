@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='assertlib',
-    version='0.1',
+    version='0.2',
     requires=['functools'],
     install_requires=['distribute'],
     author='Anthony Long',
