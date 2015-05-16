@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+__author__ = "Anthony Long"
 """assertlib is a library of standalone assertion methods.
 
   Examples:
@@ -20,7 +21,7 @@ def assertEqual(x, y):
     if x == y:
         return
     else:
-        raise AssertionError("%s is not equal to %s" % (x, y))
+        raise AssertionError("{} is not equal to {}".format(x, y))
 
 
 assertEquals = assertEqual
@@ -33,9 +34,8 @@ def assertPrecision(a, amount):
       >>> assertPrecision(1.111, 3)
     """
     if not len(str(format(a)).partition('.')[2]) == int(amount):
-        raise AssertionError("{a} does not have {amount} precision.".format(
-            str(a), str(amount))
-    )
+        raise AssertionError("{} does not have {} precision.".format(
+            str(a), str(amount)))
 
 
 def assertNotEqual(a, b):
@@ -46,7 +46,7 @@ def assertNotEqual(a, b):
       >>> assertNotEqual(int("1"), '1')
     """
     if a == b:
-        raise AssertionError("%s did not equal %s." % (a, b))
+        raise AssertionError("{} did not equal {}.".format(a, b))
 
 
 assertNotEquals = assertNotEqual
@@ -59,7 +59,7 @@ def assertTrue(x):
       >>> assertTrue(1)
     """
     if not bool(x):
-        raise AssertionError("{x} did not evaluate to True.".format(x))
+        raise AssertionError("{} did not evaluate to True.".format(x))
 
 
 def assertFalse(x):
@@ -70,7 +70,7 @@ def assertFalse(x):
       >>> assertFalse(False)
     """
     if bool(x):
-        raise AssertionError("%s did not evaluate to False." % x)
+        raise AssertionError("{} did not evaluate to False.".format(x))
 
 
 def assertIs(a, b):
@@ -88,7 +88,7 @@ def assertIs(a, b):
       >>> assertIs( 1, z )
     """
     if a is not b:
-        raise AssertionError("{a} is not {b}".format(a, b))
+        raise AssertionError("{} is not {}".format(a, b))
 
 
 def assertIsNot(a, b):
@@ -98,7 +98,7 @@ def assertIsNot(a, b):
       >>> assertIsNot(1, 2)
     """
     if a is b:
-        raise AssertionError("{a} is {b}".format(a, b))
+        raise AssertionError("{} is {}".format(a, b))
 
 
 def assertIsInstance(x, instanceof):
@@ -108,7 +108,9 @@ def assertIsInstance(x, instanceof):
       >>> assertIsInstance("foo", StringType)
     """
     if not isinstance(x, instanceof):
-        raise AssertionError("{} is not an instance of {}".format(x, instanceof))
+        raise AssertionError("{} is not an instance of {}".format(
+            x, instanceof)
+        )
 
 
 def assertIsNotInstance(x, instanceof):
@@ -118,7 +120,7 @@ def assertIsNotInstance(x, instanceof):
       >>> assertIsNotInstance("x", int)
     """
     if isinstance(x, instanceof):
-        raise AssertionError("{x} is an instance of {instanceof}".format(x, instanceof))
+        raise AssertionError("{} is an instance of {}".format(x, instanceof))
 
 
 def assertAlmostEqual(a, b, places=None, epsilon=None):
@@ -140,11 +142,11 @@ def assertAlmostEqual(a, b, places=None, epsilon=None):
     if epsilon is not None:
         if abs(a - b) <= epsilon:
             raise AssertionError(
-                '%s != %s within %s delta' % (a, b, epsilon))
+                '{} != {} within {} delta'.format(a, b, epsilon))
     else:
         if round(abs(b - a), places) == 0:
             raise AssertionError(
-                '%s != %s within %s places' % (a, b, places))
+                '{} != {} within {} places'.format(a, b, places))
 
 
 def assertNotAlmostEqual(a, b, places=None, epsilon=None):
@@ -153,38 +155,42 @@ def assertNotAlmostEqual(a, b, places=None, epsilon=None):
     You can use either places or epsilon as an arg, but you can't\
     use both. `When using epsilon, be aware of \
     <http://docs.python.org/tutorial/floatingpoint.html>`_.
-    
-    >>> assertNotAlmostEqual(1.1, 1.12, places=5)
-    >>> assertNotAlmostEqual(1.1, 1.11, epsilon=5)
-    
+
+    Example:
+      >>> assertNotAlmostEqual(1.1, 1.12, places=5)
+      >>> assertNotAlmostEqual(1.1, 1.11, epsilon=5)
     """
     if a != b:
         return
     if a == b:
-        raise AssertionError('%s == %s' % (a, b))
+        raise AssertionError('{} == {}'.format(a, b))
     if places and epsilon:
-        raise TypeError("specify delta or places not both")
+        raise TypeError("Specify delta or places, not both.")
     if epsilon is not None:
         if abs(a - b) >= epsilon:
             raise AssertionError(
-                '%s == %s within %s delta' % (a, b, epsilon))
+                '{} == {} within {} delta'.format(a, b, epsilon))
     else:
         if round(abs(b - a), places) != 0:
             raise AssertionError(
-                '%s == %s within %s places' % (a, b, places))
+                '{} == {} within {} places'.format(a, b, places))
 
 
 def assertSequenceEqual(seq1, seq2, assert_seq_types=False):
     """Assers that a sequence is equal.
 
+    Example:
       >>> assertSequenceEqual([1,2,3], [1,2,3])
     """
     if assert_seq_types and type(seq1) != type(seq2):
-        raise TypeError("type %s != type %s" % (type(seq1), type(seq2)))
+        raise TypeError("type {} != type {}".format(type(seq1), type(seq2)))
     if len(seq1) != len(seq2):
-        raise AssertionError("len(%s) of seq1 != len(%s) of seq2" % (len(seq1), len(seq2)))
+        raise AssertionError(
+            "len({}) of seq1 != len({}) of seq2".format(
+                len(seq1), len(seq2))
+            )
     if not all(a == b for a, b in itertools.izip(seq1, seq2)):
-        raise AssertionError("%s is not equal to %s" % (seq1, seq2))
+        raise AssertionError("{} is not equal to {}".format(seq1, seq2))
 
 
 def assertSequenceNotEqual(seq1, seq2, assert_seq_types=False):
@@ -194,9 +200,9 @@ def assertSequenceNotEqual(seq1, seq2, assert_seq_types=False):
       >>> assertSequenceNotEqual([1,2,3], [1,2,4])
     """
     if assert_seq_types and type(seq1) == type(seq2):
-        raise TypeError("type %s == type %s" % (type(seq1), type(seq2)))
+        raise TypeError("type {} == type {}".format(type(seq1), type(seq2)))
     if all(a != b for a, b in itertools.izip(seq1, seq2)):
-        raise AssertionError("%s is equal to %s" % (seq1, seq2))
+        raise AssertionError("{} is equal to {}".format(seq1, seq2))
 
 
 def assertEither(a, x, y):
