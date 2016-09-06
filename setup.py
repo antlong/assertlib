@@ -4,10 +4,9 @@ from distutils.core import setup
 
 setup(
     name='assertlib',
-    version='0.3.1',
+    version='0.3.2',
     description='assertlib is a standalone library of assertion methods.',
-    keywords='assert assertions validation valid data test testing \
-        tests unittest pytest nose',
+    keywords='assert assertions validation valid data test testing tests unittest pytest nose',
     author='Anthony Long',
     author_email='antlong@gmail.com',
     requires=['itertools'],
