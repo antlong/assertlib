@@ -232,8 +232,19 @@ def assertNotEither(a, x, y):
     if a == x or a == y or a in x or a in y:
         raise AssertionError("{} is {} or {}".format(a, x, y))
 
+def assertAtleast(x, y):
+    # x needs to be atleast y
+    """Assert that x is atleast y.
+    
+    Examples:
+      >>> x = 10
+      >>> y = 8
+      >>> assertAtleast(x, y)
+    """
+    if not x >= y:
+        raise AssertionError("{0} is not equal to or greater than {1}".format(x, y))
+
 
 if __name__ == "__main__":
     import doctest
-
     doctest.testmod()
